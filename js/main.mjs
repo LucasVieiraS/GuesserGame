@@ -1,5 +1,10 @@
+
 let currentRow = 1;
 let isFocus = false;
+
+const wordOfTheDay = getWordOfTheDay();
+console.log(wordOfTheDay);
+
 
 function tapKeyAnimation(key) {
     document.querySelectorAll("keyboard-button").forEach(function (element) {
