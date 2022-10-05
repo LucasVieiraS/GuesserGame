@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: rgb(49, 49, 49);
+}
+
+.text {
+  color: white;
+}
+
+.title-text {
+  font-size: 25px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 330px;
+  height: 390px;
+  background-color: rgb(31, 31, 31);
+  border: 2px solid rgb(63, 66, 66);
+  border-radius: 5px;
+}
+
+.column {
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#keyboard {
+  margin-top: 1rem;
+  width: 150%;
+}
+
+.keyboard-row {
+  display: flex;
+  width: 100%;
+  height: 2rem;
+}
+
+.keyboard-button {
+  width: 25%;
+
+  border: 2px solid rgb(12, 12, 14);
+  background-color: rgba(35, 35, 38, 0.2);
+  transition: 0.1s ease-in;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+}
+
+.keyboard-button::selection {
+  background: transparent;
+}
+
+.text-no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin: 5px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+  background-color: rgba(96, 139, 168, 0.2);
+  transition: 0.1s ease-in;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+}
+
+.tile::selection {
+  background: transparent;
+}
+
+.tile:hover {
+  background-color: rgba(96, 139, 168, 0.1);
+}
+
+.no-select {
+  pointer-events: none;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 50px;
+  width: 100%;
+  background-color: rgb(31, 31, 31);
+}
+
+.navbar > * {
+    width: 33.3vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.navbar-logo {
+  height: 3rem;
+  left: 44vw;
+  scale: 0.8;
+}
+
+.navbar-title {
+  color: white;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  color: aliceblue;
+}
+
+@media only screen and (max-width:480px) {
+  /* For mobile phones: */
+  #keyboard {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width:768px) {
+    #keyboard {
+      width: 100%;
+    }
+  }
+  
