@@ -1,7 +1,8 @@
 let currentRow = 1;
+let isFocus = false;
 
 function tapKeyAnimation(key) {
-    document.querySelectorAll("keyboard-button").forEach(function(element) {
+    document.querySelectorAll("keyboard-button").forEach(function (element) {
         if (element.innerHTML == key) {
             element.style.opacity = 0.5;
         }
@@ -34,15 +35,15 @@ function updateRows() {
 
 function isRowComplete() {
     let inputsFilled = 0;
-    document.querySelectorAll("tile").forEach(function(element) {
-        inputsFilled += element.value != "" && 1 || 0;
+    document.querySelectorAll("tile").forEach(function (element) {
+        inputsFilled += element.innerHTML != "" && 1 || 0;
     });
     return inputsFilled >= 5;
 }
 
 function retrieveWord() {
     let word = "";
-    document.querySelectorAll("tile").forEach(function(element) {
+    document.querySelectorAll("tile").forEach(function (element) {
         if (parseInt(element.id) >= currentRow * 5) {
             word += element.innerHTML;
         }
@@ -52,7 +53,7 @@ function retrieveWord() {
 
 function verifyWord() {
     let countId = 0;
-    document.querySelectorAll("tile").forEach(function(element) {
+    document.querySelectorAll("tile").forEach(function (element) {
         if (parseInt(element.id) >= currentRow * 5) {
             countId += 1;
             let currentLetter = document.innerHTML;
@@ -72,22 +73,60 @@ function verifyWord() {
     return updateRows();
 }
 
+function setFocus(bool) {
+    isFocus = bool;
+}
+
 function keyEvent(id) {
-    console.log(id);
     if (id == 'Enter') {
         if (isRowComplete()) {
-            verifyWord();
+            return verifyWord();
         } else {
             return alert(`Row ${currentRow} is not filled, try filling it.`);
         }
-    } else if (id.includes('<i>') || id == 'Backspace') {
-
+    } else if (id.includes('<i') || id == 'Backspace') {
+        if (!isFocus) {
+            var tiles = document.getElementsByClassName("tile");
+            for (var i = tiles.length; i < 0; i--) {
+                let currentTile = tiles.item(i);
+                if (currentTile.value != "" && parseInt(currentTile.id) <= currentRow * 5) {
+                    currentTile.value = ""
+                    currentTile.innerHTML = ""
+                    break
+                }
+            }
+        }
     } else {
+        if (id.length == 1 && isNaN(parseInt(id))) {
+            id = id.toUpperCase();
+            var tiles = document.getElementsByClassName("tile");
+            for (var i = 0; i < tiles.length; i++) {
+                let currentTile = tiles.item(i);
+                if (currentTile.value == "" && parseInt(currentTile.id) <= currentRow * 5) {
+                    currentTile.value = id
+                    currentTile.innerHTML = id
+                    break
+                }
+            }
+        }
+    }
+}
 
+function changeInputToKeyClicked(key) {
+    var tiles = document.getElementsByClassName("tile");
+    for (var i = 0; i < tiles.length; i++) {
+        let currentTile = tiles.item(i);
+        if (currentTile.value == "" && parseInt(currentTile.id) <= currentRow * 5) {
+            currentTile.value = key
+            currentTile.innerHTML = key
+            break
+        }
     }
 }
 
 function buttonClicked(element) {
+    let key = element.innerHTML
+    changeInputToKeyClicked(key)
     keyEvent(element.innerHTML)
 }
 
@@ -102,9 +141,9 @@ function clearTiles() {
         if (parseInt(element.id) > currentRow * 5) {
             element.disabled = "true"
         }
-     }
+    }
 }
 
 document.addEventListener('keydown', (event) => {
-    keyEvent(event.key)
+    return keyEvent(event.key)
 });
