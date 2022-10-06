@@ -109,23 +109,7 @@
     <div class="footer">
 
     </div>
-    <script src="/js/main.mjs"></script>
-    <script type="module">
-        import fs from 'fs'
-        
-        async function getWordOfTheDay(){
-            return fs.readFile("../util/Words.txt", "utf-8", function(err, data){
-            if(err) {
-                throw err;
-            }
-        
-            let lines = data.split('\n');
-            let line = lines[Math.floor(Math.random() * lines.length)]
-        
-            return line;
-        })
-        }
-    </script>
+    <script src="/js/main.js"></script>
 </body>
 
 </html>
