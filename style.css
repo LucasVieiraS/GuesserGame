@@ -146,6 +146,7 @@ body {
   height: 3rem;
   left: 44vw;
   scale: 0.8;
+  filter: invert(1);
 }
 
 .navbar-title {

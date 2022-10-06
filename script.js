@@ -1,4 +1,3 @@
-
 let currentRow = 1;
 let isFocus = false;
 
