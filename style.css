@@ -6,10 +6,52 @@
   font-family: "Inter", sans-serif;
 }
 
+:root {
+  --dark: rgb(49, 49, 49)
+}
+
 body {
   overflow-y: hidden;
   overflow-x: hidden;
-  background-color: rgb(49, 49, 49);
+  background-color: var(--dark);
+}
+
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px;
+  width: 20vw;
+  height: 20vh;
+
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+
+  background-color: rgba(96, 139, 168, .7);
+
+  transition: 0.1s ease-in;
+  cursor: pointer;
+
+  font-size: 30px;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+}
+
+.button {
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+
+  background-color: rgba(96, 139, 168, .7);
+
+  transition: 0.1s ease-in;
 }
 
 .text {
@@ -30,7 +72,6 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
   margin-top: auto;
@@ -42,8 +83,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   width: 330px;
   height: 390px;
+
   background-color: rgb(31, 31, 31);
   border: 2px solid rgb(63, 66, 66);
   border-radius: 5px;
@@ -51,8 +94,10 @@ body {
 
 .column {
   display: flex;
+
   margin-left: 5px;
   margin-right: 5px;
+
   justify-content: space-between;
   align-items: center;
 }
@@ -64,6 +109,7 @@ body {
 
 .keyboard-row {
   display: flex;
+
   width: 100%;
   height: 2rem;
 }
@@ -75,6 +121,7 @@ body {
   background-color: rgba(35, 35, 38, 0.2);
   transition: 0.1s ease-in;
   cursor: pointer;
+
   text-align: center;
   font-weight: 600;
   color: white;
@@ -84,29 +131,24 @@ body {
   background: transparent;
 }
 
-.text-no-select {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .tile {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+
   margin: 5px;
   width: 50px;
   height: 50px;
+
   border: 2px solid rgb(96, 139, 168);
   border-radius: 5px;
   background-color: rgba(96, 139, 168, 0.2);
+
   transition: 0.1s ease-in;
   cursor: pointer;
+
+  font-size: 30px;
   text-align: center;
   font-weight: 600;
   color: white;
@@ -164,15 +206,7 @@ body {
 }
 
 @media only screen and (max-width:480px) {
-  /* For mobile phones: */
   #keyboard {
     width: 100%;
   }
 }
-
-@media only screen and (min-width: 481px) and (max-width:768px) {
-    #keyboard {
-      width: 100%;
-    }
-  }
-  

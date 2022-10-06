@@ -1,12 +1,25 @@
 let currentRow = 1;
 let isFocus = false;
 
-function tapKeyAnimation(key) {
-    document.querySelectorAll("keyboard-button").forEach(function (element) {
-        if (element.innerHTML == key) {
-            element.style.opacity = 0.5;
-        }
-    });
+getWordFromAPI();
+clearTiles();
+
+document.addEventListener('keydown', (event) => {
+    return keyEvent(event.key)
+});
+
+async function getWordFromAPI() {
+    const url = 'https://api.datamuse.com/words?max=1000&sp=?????';
+
+    let response = await fetch(url);
+    let wordList = await response.json();
+
+    word = wordList[Math.floor(Math.random() * wordList.length)].word.toUpperCase();
+    document.getElementById('word').innerText = word;
+
+    if (word.includes(' ')) getWordsFromAPI();
+
+    return word;
 }
 
 function goToNextInput(currentId) {
@@ -35,15 +48,20 @@ function updateRows() {
 
 function isRowComplete() {
     let inputsFilled = 0;
-    document.querySelectorAll("tile").forEach(function (element) {
-        inputsFilled += element.innerHTML != "" && 1 || 0;
+    Array.from(document.querySelectorAll('.tile')).forEach(function(element) {
+        const id = parseInt(element.id);
+        if (id > currentRow * 5 && id <= (currentRow * 5) + 5) {
+            console.log(element.innerText == "")
+            inputsFilled += element.innerText != "" && 1 || 0;
+        }
     });
+    console.log(inputsFilled)
     return inputsFilled >= 5;
 }
 
 function retrieveWord() {
     let word = "";
-    document.querySelectorAll("tile").forEach(function (element) {
+    Array.from(document.querySelectorAll('.tile')).forEach(function(element) {
         if (parseInt(element.id) >= currentRow * 5) {
             word += element.innerHTML;
         }
@@ -53,7 +71,7 @@ function retrieveWord() {
 
 function verifyWord() {
     let countId = 0;
-    document.querySelectorAll("tile").forEach(function (element) {
+    Array.from(document.querySelectorAll('.tile')).forEach(function(element) {
         if (parseInt(element.id) >= currentRow * 5) {
             countId += 1;
             let currentLetter = document.innerHTML;
@@ -105,6 +123,8 @@ function keyEvent(id) {
                 if (currentTile.value == "" && parseInt(currentTile.id) <= currentRow * 5) {
                     currentTile.value = id
                     currentTile.innerHTML = id
+                    currentTile.focus();
+                    currentTile.select();
                     break
                 }
             }
@@ -144,6 +164,6 @@ function clearTiles() {
     }
 }
 
-document.addEventListener('keydown', (event) => {
-    return keyEvent(event.key)
-});
+function endGame(result) {
+    document.getElementById('result').innerText = result;
+}
