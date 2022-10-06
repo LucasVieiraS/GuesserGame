@@ -86,8 +86,8 @@ function keyEvent(id) {
         }
     } else if (id.includes('<i') || id == 'Backspace') {
         if (!isFocus) {
-            var tiles = document.getElementsByClassName("tile");
-            for (var i = tiles.length; i < 0; i--) {
+            let tiles = document.getElementsByClassName("tile");
+            for (let i = tiles.length; i < 0; i--) {
                 let currentTile = tiles.item(i);
                 if (currentTile.value != "" && parseInt(currentTile.id) <= currentRow * 5) {
                     currentTile.value = ""
@@ -99,8 +99,8 @@ function keyEvent(id) {
     } else {
         if (id.length == 1 && isNaN(parseInt(id))) {
             id = id.toUpperCase();
-            var tiles = document.getElementsByClassName("tile");
-            for (var i = 0; i < tiles.length; i++) {
+            let tiles = document.getElementsByClassName("tile");
+            for (let i = 0; i < tiles.length; i++) {
                 let currentTile = tiles.item(i);
                 if (currentTile.value == "" && parseInt(currentTile.id) <= currentRow * 5) {
                     currentTile.value = id
@@ -113,8 +113,8 @@ function keyEvent(id) {
 }
 
 function changeInputToKeyClicked(key) {
-    var tiles = document.getElementsByClassName("tile");
-    for (var i = 0; i < tiles.length; i++) {
+    let tiles = document.getElementsByClassName("tile");
+    for (let i = 0; i < tiles.length; i++) {
         let currentTile = tiles.item(i);
         if (currentTile.value == "" && parseInt(currentTile.id) <= currentRow * 5) {
             currentTile.value = key
