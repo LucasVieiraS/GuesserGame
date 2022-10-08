@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 :root {
@@ -25,16 +25,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   margin: 5px;
   width: 20vw;
   height: 20vh;
+  padding: 1.25rem;
 
   border: 2px solid rgb(96, 139, 168);
   border-radius: 5px;
 
-  background-color: rgba(96, 139, 168, .7);
+  background-color: rgba(12, 12, 14, .7);
 
   transition: 0.1s ease-in;
   cursor: pointer;
@@ -45,13 +46,47 @@ body {
   color: white;
 }
 
+#total-hints {
+  color: white;
+  margin-right: 1rem;
+  font-weight: 400;
+}
+
+#score {
+  color: white;
+  margin-left: 1rem;
+  font-weight: 400;
+}
+
+.icon {
+  color: white;
+  font-size: 2rem;
+
+  cursor: pointer;
+}
+
+.icon:hover {
+  opacity: 0.9;
+}
+
 .button {
   border: 2px solid rgb(96, 139, 168);
   border-radius: 5px;
 
-  background-color: rgba(96, 139, 168, .7);
+  background-color: rgba(12, 12, 14, .7);
+  color: white;
+
+  width: 50%;
+
+  margin-top: 0.75rem;
+
+  font-weight: 600;
 
   transition: 0.1s ease-in;
+}
+
+#word {
+  color: rgb(255, 140, 50)
 }
 
 .text {
@@ -160,7 +195,20 @@ body {
 }
 
 .tile:hover {
-  background-color: rgba(96, 139, 168, 0.1);
+  //background-color: rgba(96, 139, 168, 0.1);
+  opacity: 0.9;
+}
+
+.tile-wrong {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.tile-right {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.tile-warning {
+  background-color: rgba(255, 191, 0, 0.2);
 }
 
 .no-select {

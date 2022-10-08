@@ -9,65 +9,67 @@
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/1024px-Magnifying_glass_icon.svg.png" type="image/x-icon">
     <link rel="stylesheet" href="/style.css">
     <script src="https://kit.fontawesome.com/a55874067a.js" crossorigin="anonymous"></script>
-    <script defer src="/script.js"></script>
+    <script src="/script.js"></script>
 </head>
 
-<body>
+<body onload="loadGame()">
     <div class="navbar">
         <div class="navbar-left">
-            
+            <i class="fa-solid fa-trophy icon" onclick="takeHint()"></i>
+            <p id="score">SCORE: 0</p>
         </div>
         <div class="navbar-middle">
             <img class="navbar-logo no-select" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/1024px-Magnifying_glass_icon.svg.png">
             <p class="navbar-title no-select" class="text title-text">Guesser</p>
         </div>
         <div class="navbar-right">
-
+            <p id="total-hints">2 HINTS LEFT</p>
+            <i class="fa-solid fa-lightbulb icon" onclick="takeHint()"></i>
         </div>
     </div>
     <div class="container">
         <div id="board">
-            <div class="column text" value="1">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="1"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="2"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="3"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="4"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="5"></input>
+            <div class="column text" id="row-1" value="1">
+                <input type="text" class="tile" autofocus placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="1"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="2"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="3"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="4"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="5"></input>
             </div>
-            <div class="column text" value="2">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="6"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="7"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="8"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="9"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="10"></input>
+            <div class="column text" id="row-2" value="2">
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="6"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="7"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="8"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="9"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="10"></input>
             </div>
-            <div class="column text" value="3">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="11"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="12"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="13"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="14"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="15"></input>
+            <div class="column text" id="row-3" value="3">
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="11"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="12"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="13"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="14"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="15"></input>
             </div>
-            <div class="column text" value="4">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="16"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="17"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="18"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="19"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="20"></input>
+            <div class="column text" id="row-4" value="4">
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="16"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="17"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="18"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="19"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="20"></input>
             </div>
-            <div class="column text" value="5">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="21"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="22"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="23"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="24"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="25"></input>
+            <div class="column text" id="row-5" value="5">
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="21"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="22"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="23"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="24"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="25"></input>
             </div>
-            <div class="column text" value="6">
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="26"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="27"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="28"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="29"></input>
-                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" onfocus="setFocus(true)" onblur="setFocus(false)" oninput="this.value = this.value.toUpperCase()" maxlength="1" value="" onchange="inputChanged(this)" id="30"></input>
+            <div class="column text" id="row-6" value="6">
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="26"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="27"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="28"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="29"></input>
+                <input type="text" class="tile" placeholder="" onkeydown="return /[a-z]/i.test(event.key)" oninput="this.value = this.value.toUpperCase(); goToNextInput(this.id); onChange(parseInt(this.id), this.value)" onfocus="setTypingState(parseInt(this.id))" onblur="setTypingState(null)" maxlength="1" value="" id="30"></input>
             </div>
         </div>
         <div id="keyboard" draggable="false">
@@ -107,9 +109,9 @@
             </div>
         </div>
         <div id="modal" style="visibility: hidden">
-            <h1>You <span id="result"></span></h1>
-            <p>The word was <span id="word"></span></p>
-            <button class="button">PLAY AGAIN</button>
+            <h1>You <span id="result"></span>!</h1>
+            <p>The word was: <span id="word"></span></p>
+            <button class="button" onclick="restartGame()">PLAY AGAIN</button>
         </div>
     </div>
 </body>
