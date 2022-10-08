@@ -149,8 +149,8 @@ function goToNextInput(id) {
     let currentRowElement = document.getElementById(`row-${currentRow}`)
     if (currentRowElement.id != `row-${currentRow}`) return console.log("Not on the same row.");
     if (!nextInputElement) return
-    nextInputElement.select();
     nextInputElement.focus();
+    nextInputElement.select();
 }
 
 function goToPreviousInput(id) {
@@ -159,8 +159,8 @@ function goToPreviousInput(id) {
     let previousInputElement = document.getElementById(previousId);
     let currentRowElement = document.getElementById(`row-${currentRow}`)
     if (currentRowElement.id != `row-${currentRow}`) return console.log("Not on the same row.");
-    previousInputElement.select();
     previousInputElement.focus();
+    previousInputElement.select();
 }
 
 function onChange(id, value) {
@@ -176,7 +176,7 @@ function keyDown(event) {
         if (currentRowObject.isFilled()) {
             currentRowObject.verifyWord();
         } else {
-            alert(`Row ${currentRow} is not filled.`)
+            showNotification(`Row ${currentRow} is not filled.`)
         }
     } else if (ALPHABET.includes(keyName) && !typingState) {
         const emptyTile = currentRowObject.getClosestClearTile();
@@ -185,6 +185,15 @@ function keyDown(event) {
             emptyTile.select();
         }
         addKey(keyName)
+    } else if (keyName == "BACKSPACE" && typingState) {
+        const currentTile = document.getElementById(typingState);
+        if (currentTile.value == "") {
+            goToPreviousInput(typingState)
+        }
+    } else if (keyName == "ARROWLEFT") {
+        goToPreviousInput(typingState)
+    } else if (keyName == "ARROWRIGHT") {
+        goToNextInput(typingState)
     }
 }
 
@@ -225,14 +234,27 @@ function restartGame() {
     }, 100);
 }
 
+function showNotification(text, timeInSeconds = 2) {
+    const notificationBox = document.getElementById("notification-box");
+    notificationBox.innerText = text;
+    notificationBox.style.bottom = "-4rem";
+    setTimeout(() => {
+        notificationBox.style.bottom = "-25rem";
+    }, timeInSeconds * 1000);
+}
+
 function takeHint() {
     const totalHints = document.getElementById("total-hints");
     hintsLeft -= 1
     if (hintsLeft >= 0) {
         totalHints.innerText = `${hintsLeft} HINTS LEFT`
-        alert(`Word contains the letter ${currentWord[Math.floor(Math.random() * 5)]}`)
+        showNotification(`Word contains the letter ${currentWord[Math.floor(Math.random() * 5)]}`)
         if (hintsLeft == 0) {
             totalHints.style.color = "rgb(255, 0, 0)";
         }
     }
+}
+
+function showScore() {
+    showNotification(document.getElementById("score").innerText);
 }

@@ -15,7 +15,7 @@
 <body onload="loadGame()">
     <div class="navbar">
         <div class="navbar-left">
-            <i class="fa-solid fa-trophy icon" onclick="takeHint()"></i>
+            <i class="fa-solid fa-trophy icon" onclick="showScore()"></i>
             <p id="score">SCORE: 0</p>
         </div>
         <div class="navbar-middle">
@@ -23,8 +23,8 @@
             <p class="navbar-title no-select" class="text title-text">Guesser</p>
         </div>
         <div class="navbar-right">
-            <p id="total-hints">2 HINTS LEFT</p>
             <i class="fa-solid fa-lightbulb icon" onclick="takeHint()"></i>
+            <p id="total-hints">2 HINTS LEFT</p>
         </div>
     </div>
     <div class="container">
@@ -107,6 +107,9 @@
                 <button class="keyboard-button" onclick="buttonClicked(this)">M</button>
                 <button class="keyboard-button" onclick="buttonClicked(this)"><i class="fa-solid fa-delete-left"></i></button>
             </div>
+        </div>
+        <div id="notification-box">
+            NOTIFICATION: ???
         </div>
         <div id="modal" style="visibility: hidden">
             <h1>You <span id="result"></span>!</h1>

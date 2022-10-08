@@ -35,7 +35,7 @@ body {
   border: 2px solid rgb(96, 139, 168);
   border-radius: 5px;
 
-  background-color: rgba(12, 12, 14, .7);
+  background-color: rgba(12, 12, 14, .95);
 
   transition: 0.1s ease-in;
   cursor: pointer;
@@ -46,22 +46,44 @@ body {
   color: white;
 }
 
+#modal > * {
+  height: 30%;
+}
+
+#modal > h1 {
+  font-size: 2.5rem;
+}
+
+#modal > p {
+  display: flex;
+  align-items: center;
+
+  font-weight: 300;
+}
+
+#modal > p > span {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
 #total-hints {
   color: white;
-  margin-right: 1rem;
+  margin-left: 1rem;
   font-weight: 400;
+  height: 50%;
 }
 
 #score {
   color: white;
   margin-left: 1rem;
   font-weight: 400;
+  height: 50%;
 }
 
 .icon {
   color: white;
-  font-size: 2rem;
-
+  height: 50%;
   cursor: pointer;
 }
 
@@ -195,7 +217,6 @@ body {
 }
 
 .tile:hover {
-  //background-color: rgba(96, 139, 168, 0.1);
   opacity: 0.9;
 }
 
@@ -218,14 +239,15 @@ body {
 .navbar {
   display: flex;
   align-items: center;
-  padding: 10px;
-  height: 50px;
+  margin: auto;
+  min-height: 60px;
+  height: 100%;
   width: 100%;
   background-color: rgb(31, 31, 31);
 }
 
 .navbar > * {
-    width: 33.3vw;
+    width: 100vw;
     height: 100%;
     display: flex;
     align-items: center;
@@ -234,8 +256,9 @@ body {
 }
 
 .navbar-logo {
-  height: 3rem;
-  left: 44vw;
+  position: absolute;
+  height: 1.5rem;
+  left: 44%;
   scale: 0.8;
   filter: invert(1);
 }
@@ -254,8 +277,67 @@ body {
   color: aliceblue;
 }
 
-@media only screen and (max-width:480px) {
+#notification-box {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  bottom: -25rem;
+
+  width: 100%;
+  height: 2rem;
+
+  border: 2px solid rgb(96, 139, 168);
+  border-radius: 5px;
+  background-color: rgba(96, 139, 168, 0.2);
+
+  transition: 0.1s ease-in;
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 300;
+  color: white;
+}
+
+@media only screen and (max-width: 480px) {
   #keyboard {
     width: 100%;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .icon {
+    height: 100%;
+    font-size: 1.5rem;
+  }
+
+  .navbar-logo {
+    display: none;
+  }
+
+  #total-hints {
+    display: none;
+  }
+
+  #score {
+    display: none;
   }
 }
