@@ -59,12 +59,17 @@ body {
   align-items: center;
 
   font-weight: 300;
+  font-size: 60%;
 }
 
 #modal > p > span {
   font-family: 'Trebuchet MS', sans-serif;
   font-weight: 500;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+input {
+  caret-color: transparent;
 }
 
 #total-hints {
@@ -331,6 +336,10 @@ body {
 
   .navbar-logo {
     display: none;
+  }
+
+  #modal {
+    width: 90%;
   }
 
   #total-hints {

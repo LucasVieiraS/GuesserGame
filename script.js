@@ -159,13 +159,81 @@ function goToPreviousInput(id) {
     let previousInputElement = document.getElementById(previousId);
     let currentRowElement = document.getElementById(`row-${currentRow}`)
     if (currentRowElement.id != `row-${currentRow}`) return console.log("Not on the same row.");
+    if (!previousInputElement) return
     previousInputElement.focus();
     previousInputElement.select();
+    setTimeout(() => {
+        previousInputElement.focus();
+        previousInputElement.select(); 
+    }, 20);
 }
 
 function onChange(id, value) {
     if (value == "") {
-        goToPreviousInput(id);
+        //goToPreviousInput(id);
+    }
+}
+
+function clearLastTile() {
+    const currentRowObject = rows[currentRow - 1];
+    const currentTile = currentRowObject.getClosestClearTile();
+    function clearTile(toClearTile, isLast) {
+        function clear(tile) {
+            tile.value = "";
+            tile.innerHTML = "";
+            tile.focus();
+            tile.select();
+        }
+        let id = toClearTile.id;
+        if (isLast) {
+            console.log("is last");
+            console.log(toClearTile.element);
+            clear(toClearTile.element);
+        } else {
+            let previousId = parseInt(id) - 1;
+            let previousTile = document.getElementById(previousId);
+            if (previousTile) {
+                let previousTileRow = previousTile.parentElement.id;
+                console.log(typeof(previousTileRow), typeof(`row-${currentRow}`));
+                if (previousTileRow.id != `row-${currentRow}`) return console.log("Not on the same row.");
+                if (!previousTile) return
+                clear(previousTile);
+                return;
+            }
+            clear(toClearTile);
+            return;
+        }
+    }
+    if (currentTile) {
+        clearTile(currentTile);
+        return;
+    }
+    clearTile(currentRowObject.getLastTile(), true);
+}
+
+function buttonClicked(element) {
+    const currentKey = element.innerHTML;
+    const currentRowObject = rows[currentRow - 1];
+    const emptyTile = currentRowObject.getClosestClearTile();
+    console.log(currentKey);
+    if (currentKey.includes("delete")) {
+        clearLastTile();
+    } else if (currentKey == "ENTER") {
+        checkWord();
+    } else {
+        if (emptyTile) {
+            addKey(currentKey)
+            goToNextInput(emptyTile.id);
+        }
+    }
+}
+
+function checkWord() {
+    const currentRowObject = rows[currentRow - 1];
+    if (currentRowObject.isFilled()) {
+        currentRowObject.verifyWord();
+    } else {
+        showNotification(`Row ${currentRow} is not filled.`)
     }
 }
 
@@ -173,11 +241,7 @@ function keyDown(event) {
     const currentRowObject = rows[currentRow - 1];
     const keyName = event.key.toUpperCase();
     if (keyName == "ENTER") {
-        if (currentRowObject.isFilled()) {
-            currentRowObject.verifyWord();
-        } else {
-            showNotification(`Row ${currentRow} is not filled.`)
-        }
+        checkWord();
     } else if (ALPHABET.includes(keyName) && !typingState) {
         const emptyTile = currentRowObject.getClosestClearTile();
         if (emptyTile) {
@@ -186,10 +250,7 @@ function keyDown(event) {
         }
         addKey(keyName)
     } else if (keyName == "BACKSPACE" && typingState) {
-        const currentTile = document.getElementById(typingState);
-        if (currentTile.value == "") {
-            goToPreviousInput(typingState)
-        }
+        clearLastTile();
     } else if (keyName == "ARROWLEFT") {
         goToPreviousInput(typingState)
     } else if (keyName == "ARROWRIGHT") {
